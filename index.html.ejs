@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Hangman</title>
+<meta name=viewport content="initial-scale=1,user-scalable=no">
+<meta name=google content=notranslate>
+<meta name=apple-mobile-web-app-capable content=yes>
+<script>
+//<![CDATA[
+  <%
+    // Insert Webpack's manifest bundle, which has bootstrap code for
+    // dynamic requires, plus the map of bundle IDs to filenames.
+    Object.keys(compilation.assets).forEach(function(key) {
+      if (key.startsWith("manifest.") && key.endsWith(".js")) {
+        print(compilation.assets[key].children[0]._value.toString())
+      }
+    })
+  %>
+//]]>
+</script>
+
+<body>
+<div id="main"></div>
