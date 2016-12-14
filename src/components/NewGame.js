@@ -16,9 +16,9 @@ class NewGame extends React.PureComponent {
   render() {
     return (
         <div>
-          Play!
-          <a href="#" onClick={this.startEasy}>Easy</a>
-          <a href="#" onClick={this.startMedium}>Medium</a>
+          Play!{" "}
+          <a href="#" onClick={this.startEasy}>Easy</a>{" "}
+          <a href="#" onClick={this.startMedium}>Medium</a>{" "}
           <a href="#" onClick={this.startHard}>Hard</a>
         </div>
     )
