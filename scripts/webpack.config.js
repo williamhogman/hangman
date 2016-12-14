@@ -2,10 +2,8 @@
 /* eslint-disable */
 
 var webpack = require("webpack")
-var cssnext = require("postcss-cssnext")
 var html = require("html-webpack-plugin")
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
-
 
 var staticFilePattern = "name=[name].[sha256:hash:base64:7].static.[ext]"
 
@@ -38,6 +36,7 @@ module.exports = [
 
     plugins: [
       isProd && new webpack.optimize.UglifyJsPlugin(),
+      new webpack.DefinePlugin({ WORD_API_KEY: JSON.stringify(process.env["WORD_API_KEY"]) }),
       // Pull imported CSS out into a bundle, instead of getting them inline
       // in JavaScript.
       new ExtractTextPlugin("[name].[sha256:contenthash:base64:7].static.css", {
@@ -58,31 +57,14 @@ module.exports = [
     ].filter(x => !!x),
 
     entry: {
-      main: ["./index.js"],
+      main: ["./src/index.js"],
     },
 
     module: {
       loaders: [
         babelLoaderConf,
-        {
-          test: /^((?!\.m(?:odule)?\.).)*\.css$/,
-          loader: ExtractTextPlugin.extract(
-            "style-loader", "css-loader!postcss-loader"
-          )
-        },
-        {
-          test: /\.m(?:odule)?\.css$/,
-          loader: ExtractTextPlugin.extract(
-            "style-loader", "css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader"
-          )
-        },
       ]
     },
-
-    postcss() {
-      return [cssnext()]
-    },
-
     node: {
       dns: "mock",
       net: "mock",
