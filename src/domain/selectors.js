@@ -1,11 +1,11 @@
-export const getUsedLetters = ({ gameState : {incorrectLetters, correctLetters}}) =>
+export const getUsedLetters = ({incorrectLetters, correctLetters}) =>
   incorrectLetters.union(correctLetters).toArray()
 
-export const getMaskedWord = ({ gameState: {correctLetters, correctWord}}) =>
+export const getMaskedWord = ({correctLetters, correctWord}) =>
   (correctWord ? correctWord.split("") : []).map(x => correctLetters.has(x) ? x : null)
 
 const NO_LIVES = 9
-export const getTimesIncorrect = ({ gameState: { incorrectLetters } }) => Math.min(incorrectLetters.size, NO_LIVES)
+export const getTimesIncorrect = ({ incorrectLetters }) => Math.min(incorrectLetters.size, NO_LIVES)
 
 export const GAME_STATUS = {
   INACTIVE: Symbol("INACTIVE"),
@@ -14,7 +14,7 @@ export const GAME_STATUS = {
   ACTIVE: Symbol("ACTIVE")
 }
 
-export const getGameStatus = ({ gameState: { correctWord, incorrectLetters, correctLetters }}) => {
+export const getGameStatus = ({ correctWord, incorrectLetters, correctLetters }) => {
   if (correctWord == null) {
     return GAME_STATUS.INACTIVE
   } else if (incorrectLetters.size > NO_LIVES) {

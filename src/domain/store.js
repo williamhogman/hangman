@@ -11,6 +11,6 @@ const logger = createLogger({
 })
 
 export default () => createStore(
-  combineReducers({ gameState }),
+  gameState,
   applyMiddleware(thunk, logger),
 )
