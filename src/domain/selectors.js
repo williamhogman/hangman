@@ -14,12 +14,12 @@ export const GAME_STATUS = {
   ACTIVE: Symbol("ACTIVE")
 }
 
-export const getGameStatus = ({ gameState: { correctWord, incorrectLetters, alphabet, correctLetters }}) => {
+export const getGameStatus = ({ gameState: { correctWord, incorrectLetters, correctLetters }}) => {
   if (correctWord == null) {
     return GAME_STATUS.INACTIVE
   } else if (incorrectLetters.size > NO_LIVES) {
     return GAME_STATUS.LOST
-  } else if (correctLetters.size >= alphabet.size) {
+  } else if (correctLetters.size >= new Set(correctWord).size) {
     return GAME_STATUS.WON
   } else {
     return GAME_STATUS.ACTIVE
